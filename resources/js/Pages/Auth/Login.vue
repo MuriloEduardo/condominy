@@ -2,10 +2,6 @@
 	<Head title="Log in" />
 
 	<jet-authentication-card>
-		<template #logo>
-			<jet-authentication-card-logo />
-		</template>
-
 		<jet-validation-errors class="mb-4" />
 
 		<div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -72,7 +68,6 @@
 <script>
 import { defineComponent } from 'vue';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetCheckbox from '@/Jetstream/Checkbox.vue';
@@ -84,7 +79,6 @@ export default defineComponent({
 	components: {
 		Head,
 		JetAuthenticationCard,
-		JetAuthenticationCardLogo,
 		JetButton,
 		JetInput,
 		JetCheckbox,

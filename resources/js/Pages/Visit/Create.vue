@@ -12,9 +12,6 @@
 				<div class="overflow-y-scroll h-screen sm:mt-0 mt-4 px-4">
 					<div class="sticky top-0 bg-white p-4 mb-4 rounded-lg">
 						<h3 class="text-xl">{{ visits.length }} Outras Visitas</h3>
-						<small class="text-slate-400"
-							>Clique nelas para preencher os campos automaticamente e depois em salvar.</small
-						>
 					</div>
 					<div class="px-4">
 						<button
