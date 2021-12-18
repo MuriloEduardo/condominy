@@ -2,8 +2,8 @@
 	<div class="p-6">
 		<jet-validation-errors class="mb-4" />
 
-		<div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-			{{ status }}
+		<div v-if="message" class="mb-4 font-medium text-sm text-green-600">
+			{{ message }}
 		</div>
 
 		<form @submit.prevent="submit">
@@ -15,7 +15,6 @@
 						type="text"
 						class="mt-1 block w-full"
 						v-model="form.name"
-						:value="currentVisit?.name"
 						@keyup="search"
 						required
 						autofocus
@@ -28,7 +27,6 @@
 						type="text"
 						class="mt-1 block w-full"
 						v-model="form.document"
-						:value="currentVisit?.document"
 						@keyup="search"
 						required
 					/>
@@ -42,8 +40,7 @@
 						type="text"
 						class="mt-1 block w-full"
 						v-model="form.vehicle_plate"
-						:value="currentVisit?.vehicle_plate"
-						required
+						@keyup="search"
 					/>
 				</div>
 				<div class="flex-1 p-4">
@@ -53,7 +50,7 @@
 						type="text"
 						class="mt-1 block w-full"
 						v-model="form.destination_apartment"
-						:value="currentVisit?.destination_apartment"
+						@keyup="search"
 						required
 					/>
 				</div>
@@ -95,14 +92,13 @@ export default defineComponent({
 	},
 
 	props: {
-		status: String,
-		currentVisit: Object,
+		message: String,
 	},
 
 	methods: {
 		submit() {
 			this.form.post(this.route('visits.store'), {
-				onFinish: () => this.form.reset(),
+				onSuccess: () => this.form.reset(),
 			});
 		},
 		search() {
@@ -112,6 +108,12 @@ export default defineComponent({
 				vehicle_plate: this.form.vehicle_plate,
 				destination_apartment: this.form.destination_apartment,
 			});
+		},
+		setCurrentVisit(visit) {
+			this.form.name = visit.name;
+			this.form.document = visit.document;
+			this.form.vehicle_plate = visit.vehicle_plate;
+			this.form.destination_apartment = visit.destination_apartment;
 		},
 	},
 });

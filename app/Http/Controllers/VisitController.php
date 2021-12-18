@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Visit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class VisitController extends Controller
 {
@@ -18,6 +19,8 @@ class VisitController extends Controller
         return Inertia::render('Visit/Index', [
             'visits' => Visit::where('name', 'LIKE', '%' . $request->name . '%')
                 ->where('document', 'LIKE', '%' . $request->document . '%')
+                ->where('vehicle_plate', 'LIKE', '%' . $request->vehicle_plate . '%')
+                ->where('destination_apartment', 'LIKE', '%' . $request->destination_apartment . '%')
                 ->get(),
         ]);
     }
@@ -43,15 +46,17 @@ class VisitController extends Controller
         $request->validate([
             'name' => 'required',
             'document' => 'required',
-            'vehicle_plate' => 'required',
+            'vehicle_plate' => 'max:7',
             'destination_apartment' => 'required',
         ]);
 
         Visit::create($request->all());
 
         return back()->with('flash', [
-            'message' => 'success',
+            'message' => 'Visita cadastrada certinho ;)',
         ]);
+
+        return Redirect::route('visits.index');
     }
 
     /**

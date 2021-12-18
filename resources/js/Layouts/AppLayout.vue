@@ -172,7 +172,7 @@
 													transition
 												"
 											>
-												{{ $page.props.user.name }}
+												{{ $page.props.user?.name }}
 
 												<svg
 													class="ml-2 -mr-0.5 h-4 w-4"
@@ -269,6 +269,12 @@
 						>
 							Dashboard
 						</jet-responsive-nav-link>
+						<jet-responsive-nav-link
+							:href="route('visits.index')"
+							:active="route().current('visits.index')"
+						>
+							Visitas
+						</jet-responsive-nav-link>
 					</div>
 
 					<!-- Responsive Settings Options -->
@@ -283,8 +289,8 @@
 							</div>
 
 							<div>
-								<div class="font-medium text-base text-gray-800">{{ $page.props.user.name }}</div>
-								<div class="font-medium text-sm text-gray-500">{{ $page.props.user.email }}</div>
+								<div class="font-medium text-base text-gray-800">{{ $page.props.user?.name }}</div>
+								<div class="font-medium text-sm text-gray-500">{{ $page.props.user?.email }}</div>
 							</div>
 						</div>
 
