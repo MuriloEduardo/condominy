@@ -3,11 +3,6 @@ require('./bootstrap');
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
-import devtools from '@vue/devtools';
-
-if (process.env.NODE_ENV === 'development') {
-	devtools.connect('http://localhost', 3001);
-}
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
