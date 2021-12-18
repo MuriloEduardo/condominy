@@ -1,119 +1,83 @@
 <template>
-	<div class="p-6">
-		<jet-validation-errors class="mb-4" />
+	<app-layout title="Cadastros de Visitas">
+		<template #header>
+			<h2 class="font-semibold text-xl text-gray-800 leading-tight">Cadastros de Novas Visitas</h2>
+		</template>
 
-		<div v-if="message" class="mb-4 font-medium text-sm text-green-600">
-			{{ message }}
+		<div class="max-w-7xl mx-auto sm:py-12 sm:px-6 lg:px-8">
+			<div class="sm:flex justify-between items-start">
+				<div class="flex-1 bg-white shadow-xl sm:rounded-lg">
+					<create-form @form-searched="search" ref="createFormVisits" />
+				</div>
+				<div class="overflow-y-scroll h-screen sm:mt-0 mt-4 px-4">
+					<div class="sticky top-0 bg-white p-4 mb-4 rounded-lg">
+						<h3 class="text-xl">{{ visits.length }} Outras Visitas</h3>
+						<small class="text-slate-400"
+							>Clique nelas para preencher os campos automaticamente e depois em salvar.</small
+						>
+					</div>
+					<div class="px-4">
+						<button
+							class="
+								p-2
+								w-full
+								text-left
+								cursor-pointer
+								hover:bg-indigo-700 hover:text-white
+								block
+								rounded-lg
+							"
+							:class="{ 'text-white bg-indigo-700': visit.id === currentVisit.id }"
+							v-for="(visit, index) in visits"
+							:key="index"
+							@click="this.setCurrentVisit(visit)"
+						>
+							<p><strong>Nome:</strong> {{ visit.name }}</p>
+							<p><strong>Documento:</strong> {{ visit.document }}</p>
+							<p v-if="visit.vehicle_plate">
+								<strong>Placa Veículo:</strong> {{ visit.vehicle_plate }}
+							</p>
+							<p><strong>Apartamento Destino:</strong> {{ visit.destination_apartment }}</p>
+							<p><strong>Última Entrada:</strong> {{ visit.created_at_for_humans }}</p>
+						</button>
+						<div v-if="!visits.length">
+							<p class="text-xl text-slate-400">Esta é uma primeira visita!!!</p>
+							<small class="text-slate-400">Complete os dados e clique em salvar.</small>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<form @submit.prevent="submit">
-			<div class="flex">
-				<div class="flex-1 p-4">
-					<jet-label for="name" value="Nome Visitante" />
-					<jet-input
-						id="name"
-						type="text"
-						class="mt-1 block w-full"
-						v-model="form.name"
-						@keyup="search"
-						required
-						autofocus
-					/>
-				</div>
-				<div class="flex-1 p-4">
-					<jet-label for="document" value="Documento" />
-					<jet-input
-						id="document"
-						type="text"
-						class="mt-1 block w-full"
-						v-model="form.document"
-						@keyup="search"
-						required
-					/>
-				</div>
-			</div>
-			<div class="flex">
-				<div class="flex-1 p-4">
-					<jet-label for="vehicle_plate" value="Placa Veiculo" />
-					<jet-input
-						id="vehicle_plate"
-						type="text"
-						class="mt-1 block w-full"
-						v-model="form.vehicle_plate"
-						@keyup="search"
-					/>
-				</div>
-				<div class="flex-1 p-4">
-					<jet-label for="destination_apartment" value="Apartamento Destino" />
-					<jet-input
-						id="destination_apartment"
-						type="text"
-						class="mt-1 block w-full"
-						v-model="form.destination_apartment"
-						@keyup="search"
-						required
-					/>
-				</div>
-			</div>
-			<br />
-			<div class="flex justify-end">
-				<jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-					Salvar
-				</jet-button>
-			</div>
-		</form>
-	</div>
+	</app-layout>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import JetButton from '@/Jetstream/Button.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetLabel from '@/Jetstream/Label.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import CreateForm from './CreateForm.vue';
+import shared from '../../shared';
 
 export default defineComponent({
+	props: {
+		visits: Array,
+	},
 	data() {
 		return {
-			form: this.$inertia.form({
-				name: null,
-				document: null,
-				vehicle_plate: null,
-				destination_apartment: null,
-			}),
+			currentVisit: {},
 		};
 	},
-
 	components: {
-		JetButton,
-		JetInput,
-		JetLabel,
-		JetValidationErrors,
+		AppLayout,
+		CreateForm,
 	},
-
-	props: {
-		message: String,
-	},
-
 	methods: {
-		submit() {
-			this.form.post(this.route('visits.store'), {
-				onSuccess: () => this.form.reset(),
-			});
-		},
-		search() {
-			this.$emit('form-searched', {
-				name: this.form.name,
-				document: this.form.document,
-				vehicle_plate: this.form.vehicle_plate,
-				destination_apartment: this.form.destination_apartment,
-			});
+		search(visit) {
+			const cleanVisit = shared.removeObjectsNull(visit);
+			this.$inertia.get(this.route('visits.create'), cleanVisit, { preserveState: true });
 		},
 		setCurrentVisit(visit) {
-			this.form.name = visit.name;
-			this.form.document = visit.document;
-			this.form.vehicle_plate = visit.vehicle_plate;
-			this.form.destination_apartment = visit.destination_apartment;
+			this.currentVisit = visit;
+			this.$refs.createFormVisits.setCurrentVisit(visit);
 		},
 	},
 });

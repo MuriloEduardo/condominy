@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\VisitController;
-use Illuminate\Foundation\Application;
+use App\Models\Visit;
+use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,16 +19,16 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect(RouteServiceProvider::HOME);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $visits = Visit::whereDate('created_at', Carbon::today())
+        ->count();
+
+    return Inertia::render('Dashboard', [
+        'visits' => $visits,
+    ]);
 })->name('dashboard');
 
 Route::resource('visits', VisitController::class);

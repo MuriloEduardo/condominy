@@ -17,22 +17,36 @@ class VisitController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Visit/Index', [
-            'visits' => Visit::where('name', 'LIKE', '%' . $request->name . '%')
-                ->where('document', 'LIKE', '%' . $request->document . '%')
-                ->where('vehicle_plate', 'LIKE', '%' . $request->vehicle_plate . '%')
-                ->where('destination_apartment', 'LIKE', '%' . $request->destination_apartment . '%')
+            'visits' => Visit::orderBy('created_at', 'desc')
                 ->get(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $visits = Visit::orderBy('created_at', 'desc')
+            ->when($request->name, function ($query, $name) {
+                return $query->where('name', 'LIKE', '%' . $name . '%');
+            })
+            ->when($request->document, function ($query, $document) {
+                return $query->where('document', 'LIKE', '%' . $document . '%');
+            })
+            ->when($request->vehicle_plate, function ($query, $vehicle_plate) {
+                return $query->where('vehicle_plate', 'LIKE', '%' . $vehicle_plate . '%');
+            })
+            ->when($request->destination_apartment, function ($query, $destination_apartment) {
+                return $query->where('destination_apartment', 'LIKE', '%' . $destination_apartment . '%');
+            })
+            ->get();
+
+        return Inertia::render('Visit/Create', [
+            'visits' => $visits,
+        ]);
     }
 
     /**
@@ -46,17 +60,14 @@ class VisitController extends Controller
         $request->validate([
             'name' => 'required',
             'document' => 'required',
-            'vehicle_plate' => 'max:7',
             'destination_apartment' => 'required',
         ]);
 
         Visit::create($request->all());
 
-        return back()->with('flash', [
-            'message' => 'Visita cadastrada certinho ;)',
+        return Redirect::route('visits.create')->with('flash', [
+            'message' => 'Visita cadastrada!',
         ]);
-
-        return Redirect::route('visits.index');
     }
 
     /**

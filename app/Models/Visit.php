@@ -9,10 +9,17 @@ class Visit extends Model
 {
     use HasFactory;
 
+    protected $appends = ['created_at_for_humans'];
+
     protected $fillable = [
         'name',
         'document',
         'vehicle_plate',
         'destination_apartment',
     ];
+
+    public function getCreatedAtForHumansAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 }

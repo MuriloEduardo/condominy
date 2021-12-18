@@ -23,13 +23,20 @@
 									Dashboard
 								</jet-nav-link>
 							</div>
-
 							<div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
 								<jet-nav-link
 									:href="route('visits.index')"
 									:active="route().current('visits.index')"
 								>
-									Visitas
+									Lista de Visitas
+								</jet-nav-link>
+							</div>
+							<div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+								<jet-nav-link
+									:href="route('visits.create')"
+									:active="route().current('visits.create')"
+								>
+									Cadastros de Visitas
 								</jet-nav-link>
 							</div>
 						</div>
@@ -273,7 +280,13 @@
 							:href="route('visits.index')"
 							:active="route().current('visits.index')"
 						>
-							Visitas
+							Lista de Visitas
+						</jet-responsive-nav-link>
+						<jet-responsive-nav-link
+							:href="route('visits.create')"
+							:active="route().current('visits.create')"
+						>
+							Cadastros de Visitas
 						</jet-responsive-nav-link>
 					</div>
 
@@ -398,7 +411,6 @@ export default defineComponent({
 	props: {
 		title: String,
 	},
-
 	components: {
 		Head,
 		JetApplicationMark,
@@ -409,13 +421,11 @@ export default defineComponent({
 		JetResponsiveNavLink,
 		Link,
 	},
-
 	data() {
 		return {
 			showingNavigationDropdown: false,
 		};
 	},
-
 	methods: {
 		switchToTeam(team) {
 			this.$inertia.put(
@@ -428,7 +438,6 @@ export default defineComponent({
 				}
 			);
 		},
-
 		logout() {
 			this.$inertia.post(route('logout'));
 		},
