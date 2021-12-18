@@ -8,6 +8,8 @@
 			{{ status }}
 		</div>
 
+		<h1 class="text-4xl mt-4 mb-6">Entrar</h1>
+
 		<form @submit.prevent="submit">
 			<div>
 				<jet-label for="email" value="Email" />

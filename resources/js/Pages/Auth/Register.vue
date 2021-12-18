@@ -4,6 +4,8 @@
 	<jet-authentication-card>
 		<jet-validation-errors class="mb-4" />
 
+		<h1 class="text-4xl mt-4 mb-6">Se Registrar</h1>
+
 		<form @submit.prevent="submit">
 			<div>
 				<jet-label for="name" value="Name" />
