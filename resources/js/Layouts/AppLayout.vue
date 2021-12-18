@@ -269,6 +269,18 @@
 						>
 							Dashboard
 						</jet-responsive-nav-link>
+						<jet-responsive-nav-link
+							:href="route('visits.index')"
+							:active="route().current('visits.index')"
+						>
+							Lista de Visitas
+						</jet-responsive-nav-link>
+						<jet-responsive-nav-link
+							:href="route('visits.create')"
+							:active="route().current('visits.create')"
+						>
+							Cadastros de Visitas
+						</jet-responsive-nav-link>
 					</div>
 
 					<!-- Responsive Settings Options -->
