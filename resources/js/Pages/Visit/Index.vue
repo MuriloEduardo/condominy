@@ -5,30 +5,32 @@
 		</template>
 
 		<div class="max-w-7xl mx-auto sm:py-12 sm:px-6 lg:px-8 overflow-x-auto">
-			<table class="m-4 w-full">
-				<thead>
-					<tr class="text-left whitespace-nowrap bg-indigo-700 text-white">
-						<th class="p-2">Nome</th>
-						<th class="p-2">Documento</th>
-						<th class="p-2">Placa Veículo</th>
-						<th class="p-2">Apartamento Destino</th>
-						<th class="p-2">Última Entrada</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="(visit, index) in visits" :key="index">
-						<td class="p-2">{{ visit.name }}</td>
-						<td class="p-2">{{ visit.document }}</td>
-						<td class="p-2">
-							{{ visit.vehicle_plate }}
-						</td>
-						<td class="p-2">
-							{{ visit.destination_apartment }}
-						</td>
-						<td class="p-2">{{ visit.created_at_for_humans }}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="bg-white shadow-xl sm:rounded-lg p-4">
+				<table class="w-full">
+					<thead>
+						<tr class="text-left whitespace-nowrap bg-indigo-700 text-white">
+							<th class="p-2">Nome</th>
+							<th class="p-2">Documento</th>
+							<th class="p-2">Placa Veículo</th>
+							<th class="p-2">Apartamento Destino</th>
+							<th class="p-2">Última Entrada</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(visit, index) in visits" :key="index">
+							<td class="p-2">{{ visit.name }}</td>
+							<td class="p-2">{{ visit.document }}</td>
+							<td class="p-2">
+								{{ visit.vehicle_plate }}
+							</td>
+							<td class="p-2">
+								{{ visit.destination_apartment }}
+							</td>
+							<td class="p-2">{{ visit.created_at_for_humans }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</app-layout>
 </template>
