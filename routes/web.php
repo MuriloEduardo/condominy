@@ -23,11 +23,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $visits = Visit::whereDate('created_at', Carbon::today())
+    $visitsCount = Visit::whereDate('created_at', Carbon::today())
         ->count();
 
     return Inertia::render('Dashboard', [
-        'visits' => $visits,
+        'visits' => Visit::get(),
+        'visitsCount' => $visitsCount,
     ]);
 })->name('dashboard');
 
