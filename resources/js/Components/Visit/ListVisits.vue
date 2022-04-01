@@ -8,6 +8,7 @@
 					<th class="p-2">Placa Veículo</th>
 					<th class="p-2">Apartamento Destino</th>
 					<th class="p-2">Última Entrada</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
