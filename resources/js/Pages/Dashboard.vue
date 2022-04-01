@@ -13,12 +13,12 @@
 					{{ $page.props.jetstream.flash.message }}
 				</div>
 				<div class="flex justify-between">
-					<a :href="route('visits.index')" class="mb-4 block">
+					<div class="mb-4 block">
 						<div class="bg-white p-4 shadow-xl rounded-lg inline-block">
 							<p class="text-4xl">{{ visitsCount }}</p>
 							<p class="text-slate-400">Visitas Hoje</p>
 						</div>
-					</a>
+					</div>
 					<a
 						class="
 							inline-flex
