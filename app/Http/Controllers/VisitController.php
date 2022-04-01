@@ -16,10 +16,7 @@ class VisitController extends Controller
      */
     public function index(Request $request)
     {
-        return Inertia::render('Visit/Index', [
-            'visits' => Visit::orderBy('created_at', 'desc')
-                ->get(),
-        ]);
+        //
     }
 
     /**
@@ -65,7 +62,7 @@ class VisitController extends Controller
 
         Visit::create($request->all());
 
-        return Redirect::route('visits.create')->with('flash', [
+        return Redirect::route('dashboard')->with('flash', [
             'message' => 'Visita cadastrada!',
         ]);
     }

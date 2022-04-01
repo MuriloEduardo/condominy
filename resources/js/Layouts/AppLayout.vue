@@ -18,14 +18,6 @@
 							</div>
 							<div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
 								<jet-nav-link
-									:href="route('visits.index')"
-									:active="route().current('visits.index')"
-								>
-									Lista de Visitas
-								</jet-nav-link>
-							</div>
-							<div class="hidden space-x-8 sm:-my-px sm:mr-10 sm:flex">
-								<jet-nav-link
 									:href="route('visits.create')"
 									:active="route().current('visits.create')"
 								>
@@ -268,12 +260,6 @@
 							:active="route().current('dashboard')"
 						>
 							Dashboard
-						</jet-responsive-nav-link>
-						<jet-responsive-nav-link
-							:href="route('visits.index')"
-							:active="route().current('visits.index')"
-						>
-							Lista de Visitas
 						</jet-responsive-nav-link>
 						<jet-responsive-nav-link
 							:href="route('visits.create')"

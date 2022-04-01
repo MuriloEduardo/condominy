@@ -2,10 +2,6 @@
 	<div class="pb-6 pt-0 px-4 sm:p-6">
 		<jet-validation-errors class="mb-4" />
 
-		<div v-if="$page.props.jetstream.flash.message" class="mb-4 font-medium text-sm text-green-600">
-			{{ $page.props.jetstream.flash.message }}
-		</div>
-
 		<form @submit.prevent="submit">
 			<div class="flex">
 				<div class="flex-1 p-4">
@@ -88,9 +84,6 @@ export default defineComponent({
 		JetInput,
 		JetLabel,
 		JetValidationErrors,
-	},
-	props: {
-		message: String,
 	},
 	methods: {
 		submit() {

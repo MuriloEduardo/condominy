@@ -6,6 +6,12 @@
 
 		<div class="py-12">
 			<div class="max-w-7xl mx-auto px-6 lg:px-8">
+				<div
+					v-if="$page.props.jetstream.flash.message"
+					class="mb-4 font-medium text-sm text-green-600"
+				>
+					{{ $page.props.jetstream.flash.message }}
+				</div>
 				<div class="flex justify-between">
 					<a :href="route('visits.index')" class="mb-4 block">
 						<div class="bg-white p-4 shadow-xl rounded-lg inline-block">
@@ -52,6 +58,7 @@ export default defineComponent({
 	props: {
 		visits: Array,
 		visitsCount: Number,
+		message: String,
 	},
 	components: {
 		AppLayout,
