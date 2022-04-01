@@ -19,6 +19,7 @@ class CreateVisitsTable extends Migration
             $table->string('document');
             $table->string('vehicle_plate')->nullable();
             $table->string('destination_apartment');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
